@@ -4,7 +4,7 @@
 #define BUTTON_PIN 2
 #define LED_PIN 3
 
-#define PRESS_ROUNDS 3
+#define PRESS_ROUNDS 5
 
 LiquidCrystal_I2C lcd(0x27,  16, 2);
 
