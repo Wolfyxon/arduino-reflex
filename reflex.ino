@@ -117,15 +117,26 @@ void beginPress() {
 
   lastPress = millis();
   unsigned long duration = 1000 * random(1, 3);
+  unsigned long end = lastPress + duration;
 
   digitalWrite(LED_PIN, HIGH);
+
+  lcd.clear();
+  lcd.print("PRESS THE BUTTON");
 
   tone(SPEAKER_PIN, 1000);
   delay(10);
   noTone(SPEAKER_PIN);
 
-  while(millis() < lastPress + duration) {
-    if(isButtonPressed()) {
+  size_t i = 0;
+
+  while(millis() < end) {
+    if(i % 500) {
+      lcd.setCursor(6, 1);
+      lcd.print(((float)(end - millis()) / 1000.0));
+    }
+
+    if(isButtonPressed()) {      
       uint32_t points = (duration - (millis() - lastPress)) / 10;
       score += points;
 
@@ -146,6 +157,7 @@ void beginPress() {
     }
 
     delay(1);
+    i++;
   }
 
   digitalWrite(LED_PIN, LOW);
